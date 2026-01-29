@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- fontawesomecdn -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        font-family: "Space Grotesk", sans-serif;
+      }
+      .bento-card {
+        background: #ffffff;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #e5e7eb;
+      }
+      .bento-card:hover {
+        border-color: #6366f1;
+        transform: scale(1.01);
+      }
+    </style>
+    <script src="./script.js"></script>
+  </head>
+  <body
+    class="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-r from-blue-500/90 via-indigo-500/90 to-violet-500/90"
+  >
+    <!-- nav-bar -->
+    <nav
+      class="fixed top-6 w-full max-w-3xl px-6 py-4 flex justify-between items-center border border-1 border-zinc-300/50 bg-white/20 backdrop-blur-md rounded-2xl z-50 shadow-2xl"
+    >
+      <div class="flex items-center gap-2">
+        <div
+          class="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-black font-bold"
+        >
+          N
+        </div>
+        <h1 class="text-xl font-bold text-white tracking-tight">MyBank</h1>
+      </div>
+      <button
+        class="bg-white/10 hover:bg-red-500/20 hover:border-red-500/20 text-white border border-white-500/20 px-4 py-2 rounded-xl text-sm font-bold transition-all"
+        onclick="logOut()"
+      >
+        Logout
+      </button>
+    </nav>
+
+    <!-- main -->
+    <div
+      class="max-w-3xl w-full grid grid-cols-1 md:grid-cols-8 gap-5 mt-24 mb-10 px-4"
+    >
+      <!-- balance-info -->
+      <div
+        class="col-span-1 md:col-span-6 w-auto order-2 md:order-1 border border-1 border-zinc-300/50 bg-white/20 rounded-3xl p-10 shadow-2xl backdrop-blur-md transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-xl cursor-pointer"
+      >
+        <h1 class="text-sm my-2 font-bold text-white">TOTAL BALANCE</h1>
+        <div
+        
+        id="balAmount"
+        class="text-5xl font-bold text-gray-800">$0</div>
+      </div>
+
+      <!-- Username-container -->
+      <div
+        class="col-span-1 md:col-span-2 p-10 md:p-1 bg-white/70 rounded-3xl border-2 order-1 md:order-2 flex flex-col justify-center items-center transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-xl cursor-pointer shadow-2xl"
+      >
+        <img src="./image.png" alt="" class="rounded-full h-[70px] w-[70px]" />
+        <h1
+        id="Name"
+        class="font-bold text-lg">Username</h1>
+        <div
+        id="AccountID" 
+        class="text-xs text-zinc-400">Account Number</div>
+      </div>
+
+      <!-- Deposit-amount -->
+      <div
+        class="col-span-1 md:col-span-4 order-3 p-6 md:p-8 rounded-3xl border border-1 border-zinc-300/50 bg-white/20 shadow-2xl transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-xl cursor-pointer"
+      >
+        <div class="mb-4">
+          <h1 class="font-bold text-xl my-6">
+            <i class="fa-solid fa-circle-plus mx-2"></i>Deposit amount
+          </h1>
+          <input
+           id="depositAmount"
+            placeholder="00.00"
+            class="w-full px-4 py-2 h-[70px] my-2 bg-black/30 text-2xl text-white/80 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Button -->
+        <button
+          type="submit"
+          onclick="deposit()"
+          class="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500 text-white font-bold text-lg shadow-lg hover:shadow-black/20 hover:scale-[1.02] active:scale-95 transition-all duration-300"
+        >
+          Deposit
+        </button>
+      </div>
+
+      <!-- Withdraw-amount -->
+      <div
+        class="col-span-1 md:col-span-4 order-3 p-6 md:p-8 border border-1 border-zinc-300/50 bg-white/20 rounded-3xl shadow-2xl transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-xl cursor-pointer"
+      >
+        <div class="mb-4">
+          <h1 class="font-bold text-xl my-6">
+            <i class="fa-solid fa-circle-minus mx-2"></i>Withdraw-amount
+          </h1>
+          <input
+            placeholder="00.00"
+            id="withdrawAmount"
+            class="w-full px-4 py-2 h-[70px] my-2 py-3 bg-black/30 text-white/80 text-2xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Button -->
+        <button
+          type="submit"
+          onclick="withdraw()"
+          class="w-full py-4 rounded-2xl bg-white/80 text-black font-bold text-lg shadow-lg hover:shadow-black/20 hover:scale-[1.02] active:scale-95 transition-all duration-300"
+        >
+          Withdraw
+        </button>
+      </div>
+    </div>
+
+    <div class="text-zinc-800 text-xs font-bold">
+     #Powered by Nazim-Company
+    </div>
+  </body>
+  <script>
+    const loggedUserAcno= localStorage.getItem("loggedUser")// loggedUser-123
+    const user=JSON.parse(localStorage.getItem(loggedUserAcno))//123- name,bal,pass,
+    // localStorage.setItem(loggedUserAcno,JSON.stringify(user))
+
+//balance update
+    htmlData=`
+    <p>$${user.bal}</p>
+    `
+    balAmount.innerHTML=htmlData
+
+//Username-update
+    htmlData1=`
+    <p>${user.uname}</p>
+    `
+    Name.innerHTML=htmlData1
+
+//id Update
+    htmlData2=`
+    ID-${user.id}
+    `
+    AccountID.innerHTML=htmlData2
+
+
+  </script>
+</html>
